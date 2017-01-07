@@ -1,9 +1,11 @@
 html {
   font-size: 62.5%;
 }
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
+
 .wrapper {
   width: 960px;
   margin: 50px auto 50px;
@@ -21,7 +23,7 @@ html {
     position: relative;
     padding-top: 25px;
     height: 160px;
-    background-color: gray;
+    background-color: green;
     font-size: 2rem;
     text-align: center;
     color: white;
