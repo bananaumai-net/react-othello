@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --content-base ./dist",
-    "build": "webpack --watch",
+    "start": "webpack --watch & browser-sync start --server dist --config bs-config.js",
+    "build": "webpack",
     "test": "mocha --require babel-register --watch",
     "lint": "eslint ./src"
   },
   "author": "Yuta Shimakawa",
   "license": "MIT",
   "dependencies": {
+    "browser-sync": "^2.18.6",
     "immutable": "^3.8.1",
     "lodash": "^4.17.3",
     "normalize.css": "^5.0.0",
@@ -38,7 +39,6 @@
     "postcss-loader": "^1.2.1",
     "postcss-nested": "^1.0.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2"
+    "webpack": "^1.14.0"
   }
 }
