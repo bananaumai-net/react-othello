@@ -1,0 +1,90 @@
+html {
+  font-size: 62.5%;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+.wrapper {
+  width: 960px;
+  margin: 50px auto 50px;
+}
+
+.support-deck {
+  float: left;
+  margin: 0 50px;
+  width: 200px;
+
+  .support-deck-item {
+    margin: 0 0 20px;
+  }
+  .current-disc {
+    position: relative;
+    padding-top: 25px;
+    height: 160px;
+    background-color: gray;
+    font-size: 2rem;
+    text-align: center;
+    color: white;
+
+    .current-disc-content {
+      position: absolute;
+      top: 55px;
+      left: 60px;
+    }
+  }
+
+  .support-btn {
+    padding: 0;
+    height: 40px;
+    width: 200px;
+    background-color: darkorange;
+    font-size: 1.5rem;
+    color: white;
+    border: 0;
+  }
+
+  .show-available-btn {
+    background-color: darkorange;
+  }
+
+  .skip-btn {
+    background-color: dodgerblue;
+  }
+}
+
+.bord {
+  float: right;
+  width: 640px;
+  font-size: 0;
+
+  .square {
+    display: inline-block;
+    margin: 0;
+    width: 80px;
+    height: 80px;
+    border-collapse: collapse;
+    border: solid 0.5px white;
+    background-color: green;
+  }
+
+  .available {
+    transition: color 0.3s;
+    background-color: orange;
+  }
+}
+
+.disc {
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  border-radius: 30px;
+}
+
+.disc-black {
+  background-color: black;
+}
+
+.disc-white {
+  background-color: white;
+}
+
