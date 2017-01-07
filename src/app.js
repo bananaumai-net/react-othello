@@ -1,16 +1,9 @@
 import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
-import IM from 'immutable'
 import { Game, DISC, SQUARE_STATUSES } from './models'
 import 'normalize.css'
 import './app.css'
-
-const game = new Game(DISC.WHITE_SIDE)
-const sampleBord = IM.fromJS({
-  '11': "BLACK",
-  '12': "WHITE"
-})
 
 function Square(props) {
   const clickHandler = () => props.clickHandler(props.coord)
@@ -24,10 +17,10 @@ function Square(props) {
   switch(props.status) {
     case SQUARE_STATUSES.BLACK:
       disc = <div className="disc disc-black"></div>
-      break;
+      break
     case SQUARE_STATUSES.WHITE:
       disc = <div className="disc disc-white"></div>
-      break;
+      break
   }
 
   return (
