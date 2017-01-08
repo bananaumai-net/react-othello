@@ -112,10 +112,10 @@ describe('Game', () => {
     it('shold create new bord and new history', () => {
       const game = new m.Game(m.DISC.WHITE_SIDE)
       game.placeDisc('53')
-      assert.equal(m.SQUARE_STATUSES.WHITE, game.bord['54'])
+      assert.equal(m.SQUARE_STATUSES.WHITE, game.getCurrentBord()['54'])
       assert.equal(2, game.history.length)
-      game.revertTo(0)
-      assert.equal(m.SQUARE_STATUSES.BLACK, game.bord['54'])
+      game.revertTo(1)
+      assert.equal(m.SQUARE_STATUSES.BLACK, game.getCurrentBord()['54'])
       assert.equal(1, game.history.length)
     })
   })
