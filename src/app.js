@@ -60,12 +60,15 @@ function Record(props) {
 
 function History(props) {
   return (
-    <ul className="history">
-      {props.history.map((record, idx) => {
-        const revert = () => props.revert(idx)
-        return <Record key={idx} disc={record.placedDisc} coord={record.coord} revert={revert} />
-      })}
-    </ul>
+    <div className="support-deck-item history">
+      <h2 className="history-title">HISTORY</h2>
+      <ul>
+        {props.history.map((record, idx) => {
+          const revert = () => props.revert(idx)
+          return <Record key={idx} disc={record.placedDisc} coord={record.coord} revert={revert} />
+        })}
+      </ul>
+    </div>
   )
 }
 
@@ -82,18 +85,25 @@ function SupportDeck(props) {
       disc = <div></div>
   }
 
-  let skipButton = null
+  let btnForSkipOrShowAvailable = null
   if(props.shouldSkip) {
-    skipButton = <button className="support-deck-item support-btn skip-btn" onClick={props.skip}>SKIP</button>
+    btnForSkipOrShowAvailable = <button className="support-deck-item support-btn skip-btn" onClick={props.skip}>SKIP</button>
+  } else {
+    btnForSkipOrShowAvailable = <button
+                                  className="support-deck-item support-btn show-available-btn"
+                                  onClick={props.showAvailable}
+                                >
+                                  SHOW AVAILABLE SQUARES
+                                </button>
   }
+
   return (
     <div className="support-deck">
       <div className="support-deck-item current-disc">
         CURRENT DISC
         <div className="current-disc-content">{disc}</div>
       </div>
-      <button className="support-deck-item support-btn show-available-btn" onClick={props.showAvailable}>SHOW AVAILABLE SQUARES</button>
-      {skipButton}
+      {btnForSkipOrShowAvailable}
       <History history={props.history} revert={props.revert} />
     </div>
   )
