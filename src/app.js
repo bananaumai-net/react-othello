@@ -55,13 +55,16 @@ function Record(props) {
       text = 'Initial'
   }
 
-  return <li className="record">{text}</li>
+  return <li className="record"><a onClick={props.revert} href="#">{text}</a></li>
 }
 
 function History(props) {
   return (
     <ul className="history">
-      {props.history.map((record, idx) => <Record key={idx} disc={record.placedDisc} coord={record.coord} />)}
+      {props.history.map((record, idx) => {
+        const revert = () => props.revert(idx)
+        return <Record key={idx} disc={record.placedDisc} coord={record.coord} revert={revert} />
+      })}
     </ul>
   )
 }
@@ -76,7 +79,7 @@ function SupportDeck(props) {
       disc = <div className="disc disc-black"></div>
       break
     default:
-      <div></div>
+      disc = <div></div>
   }
 
   let skipButton = null
@@ -91,7 +94,7 @@ function SupportDeck(props) {
       </div>
       <button className="support-deck-item support-btn show-available-btn" onClick={props.showAvailable}>SHOW AVAILABLE SQUARES</button>
       {skipButton}
-      <History history={props.history} />
+      <History history={props.history} revert={props.revert} />
     </div>
   )
 }
@@ -132,6 +135,16 @@ class App extends React.Component {
     })
   }
 
+  revertTo(idx) {
+    this.game.revertTo(idx)
+    this.setState({
+      bord: this.game.getCurrentBord(),
+      currentDisc: this.game.currentDisc,
+      availableCoords: [],
+      history: this.game.history
+    })
+  }
+
   render() {
     return (
       <div className="wrapper">
@@ -141,6 +154,7 @@ class App extends React.Component {
           showAvailable={() => this.showAvailable()}
           skip={() => this.skip()}
           history={this.state.history}
+          revert={idx => this.revertTo(idx)}
         />
         <Bord
           bord={this.state.bord}
