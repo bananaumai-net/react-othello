@@ -175,7 +175,7 @@ export class Game {
     this.addHistory()
   }
 
-  get bord() {
+  getCurrentBord() {
     return this.currentBord.toJS()
   }
 
@@ -201,12 +201,14 @@ export class Game {
     if (!history) throw new Error('Invalid history number')
     this.currentBord = history.currentBord
     this.currentDisc = history.currentDisc
-    this.history = _.take(this.history, n + 1)
+    this.history = this.history.slice(n, this.history.length)
+    return this
   }
 
   skip() {
     this.currentDisc = this.getNextDisc()
     this.addHistory(null, null, true)
+    return this
   }
 
   getNextDisc() {
@@ -223,12 +225,13 @@ export class Game {
       rowcol.row = getRow(coord)
       rowcol.col = getCol(coord)
     }
-    this.history.push({
+    const record = {
       currentBord: this.currentBord,
       currentDisc: this.currentDisc,
       placedDisc: placedDisc,
       coord: rowcol,
       skip: skip
-    })
+    }
+    this.history = [record].concat(this.history)
   }
 }

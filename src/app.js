@@ -9,7 +9,7 @@ function Square(props) {
   const clickHandler = () => props.clickHandler(props.coord)
 
   let squareClassName = 'square'
-  if (props.available) {
+  if(props.available) {
     squareClassName += ' available'
   }
 
@@ -42,6 +42,30 @@ function Bord(props) {
   )
 }
 
+function Record(props) {
+  let text = ''
+  switch(props.disc) {
+    case DISC.BLACK_SIDE:
+      text = `BLACK ${props.coord.row}-${props.coord.col}`
+      break
+    case DISC.WHITE_SIDE:
+      text = `WHITE ${props.coord.row}-${props.coord.col}`
+      break
+    default:
+      text = 'Initial'
+  }
+
+  return <li className="record">{text}</li>
+}
+
+function History(props) {
+  return (
+    <ul className="history">
+      {props.history.map((record, idx) => <Record key={idx} disc={record.placedDisc} coord={record.coord} />)}
+    </ul>
+  )
+}
+
 function SupportDeck(props) {
   let disc = null
   switch(props.currentDisc) {
@@ -67,6 +91,7 @@ function SupportDeck(props) {
       </div>
       <button className="support-deck-item support-btn show-available-btn" onClick={props.showAvailable}>SHOW AVAILABLE SQUARES</button>
       {skipButton}
+      <History history={props.history} />
     </div>
   )
 }
@@ -76,18 +101,20 @@ class App extends React.Component {
     super()
     this.game = new Game(DISC.WHITE_SIDE)
     this.state = {
-      bord: this.game.bord,
+      bord: this.game.getCurrentBord(),
       currentDisc: this.game.currentDisc,
-      availableCoords: []
+      availableCoords: [],
+      history: this.game.history
     }
   }
 
   placeDisc(coord) {
     this.game.placeDisc(coord)
     this.setState({
-      bord: this.game.bord,
+      bord: this.game.getCurrentBord(),
       currentDisc: this.game.currentDisc,
-      availableCoords: []
+      availableCoords: [],
+      history: this.game.history
     })
   }
 
@@ -100,7 +127,8 @@ class App extends React.Component {
   skip() {
     this.game.skip()
     this.setState({
-      currentDisc: this.game.currentDisc
+      currentDisc: this.game.currentDisc,
+      history: this.game.history
     })
   }
 
@@ -112,6 +140,7 @@ class App extends React.Component {
           shouldSkip={this.game.getAvailableCoords() === 0}
           showAvailable={() => this.showAvailable()}
           skip={() => this.skip()}
+          history={this.state.history}
         />
         <Bord
           bord={this.state.bord}
